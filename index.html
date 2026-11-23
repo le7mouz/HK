@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rassw9ida, Hamza Kabori — portfolio</title>
+<meta name="description" content="Portfolio de Hamza Kabori, alias Rassw9ida : musique, image, installation. Master 2 CCNT, option art numérique.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Schibsted+Grotesk:wght@400;500;700;900&family=Reem+Kufi:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --suie:#140807;      /* fond : le noir rouge des photos */
+  --cendre:#2A1613;
+  --braise:#E0261A;    /* lumière rouge */
+  --laine:#FF5E2A;     /* la cagoule */
+  --os:#EFE6DA;        /* texte */
+  --os-2:#B9AA9C;
+  --uv:#B43BE0;        /* lumière de l'expo */
+  --bois:#D9B88A;
+  --soufre:#E3C44A;    /* volet II */
+  --marc:#3A2417;
+  --gutter:clamp(56px,8vw,120px);
+  --pad-y:clamp(56px,10vh,112px);
+  --frak:"UnifrakturMaguntia",serif;
+  --sans:"Schibsted Grotesk",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--suie);color:var(--os);font-family:var(--sans);font-size:clamp(16px,1.05vw,18px);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video,iframe{display:block;max-width:100%}
+figure{margin:0}
+a{color:inherit;text-underline-offset:.2em;text-decoration-thickness:1px}
+a:hover{color:var(--laine)}
+:focus-visible{outline:2px solid var(--laine);outline-offset:4px}
+::selection{background:var(--braise);color:var(--os)}
+
+/* grain de pellicule */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.09;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ───────── L'allumette ───────── */
+.match{position:fixed;left:clamp(18px,3vw,40px);top:9vh;bottom:9vh;width:22px;z-index:40}
+.stick{position:absolute;left:50%;top:0;bottom:0;width:5px;transform:translateX(-50%);
+  background:linear-gradient(90deg,#b8946a,var(--bois) 45%,#a8835a);border-radius:0 0 2px 2px}
+.char{position:absolute;left:50%;top:0;width:5px;transform:translateX(-50%);height:0;
+  background:linear-gradient(#0a0302,#1d0c08 80%,#5a1a0c);border-radius:2px}
+.char::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-3px;height:6px;border-radius:50%;
+  background:var(--laine);filter:blur(2px);opacity:.9}
+.head{position:absolute;left:50%;top:-14px;width:11px;height:18px;transform:translateX(-50%);
+  border-radius:50% 50% 45% 45%;background:radial-gradient(circle at 40% 35%,#ff6a52,var(--braise) 55%,#7a0d08);transition:opacity .6s}
+.flame{position:absolute;left:50%;top:0;width:26px;height:46px;transform:translate(-50%,-92%) scale(0);transform-origin:50% 92%;
+  transition:transform .5s cubic-bezier(.2,1.6,.4,1)}
+.flame svg{width:100%;height:100%;overflow:visible;animation:flicker 1.6s infinite alternate ease-in-out;transform-origin:50% 95%}
+.lit .flame{transform:translate(-50%,-92%) scale(1)}
+.lit .head{opacity:0}
+@keyframes flicker{
+  0%{transform:scale(1,1) skewX(0)}
+  25%{transform:scale(.94,1.06) skewX(2deg)}
+  50%{transform:scale(1.04,.96) skewX(-2deg)}
+  75%{transform:scale(.97,1.08) skewX(1deg)}
+  100%{transform:scale(1.02,.98) skewX(-1deg)}
+}
+.ticks{position:absolute;inset:0;list-style:none}
+.ticks a{position:absolute;left:14px;transform:translateY(-50%);display:flex;align-items:center;gap:10px;
+  font-family:var(--frak);font-size:15px;color:var(--os-2);text-decoration:none;white-space:nowrap;opacity:0;transition:opacity .25s}
+.ticks a::before{content:"";width:8px;height:1px;background:var(--os-2)}
+.match:hover .ticks a,.ticks a:focus-visible{opacity:1}
+.ticks a:hover{color:var(--laine)}
+
+.glow{position:fixed;left:0;top:0;width:60vmax;height:60vmax;border-radius:50%;pointer-events:none;z-index:1;
+  background:radial-gradient(circle,rgba(255,94,42,.16),transparent 60%);transform:translate(-50%,-50%);opacity:0;transition:opacity 1.2s}
+.lit ~ .glow{opacity:1}
+
+/* lecteur : la page se lit comme l'EP */
+.now{position:fixed;right:clamp(16px,3vw,40px);bottom:clamp(14px,3vh,32px);z-index:40;display:flex;align-items:baseline;gap:14px;
+  font-size:13px;color:var(--os-2);font-variant-numeric:tabular-nums;padding:8px 12px;background:rgba(20,8,7,.7);backdrop-filter:blur(6px)}
+.now b{font-family:var(--frak);font-weight:400;font-size:22px;color:var(--os)}
+.now .bar{width:90px;height:1px;background:var(--cendre);position:relative;align-self:center}
+.now .bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--laine)}
+
+/* ───────── Structure ───────── */
+section{position:relative;z-index:2;padding:var(--pad-y) clamp(20px,5vw,80px) var(--pad-y) var(--gutter)}
+.track{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;margin-bottom:clamp(20px,3vh,36px);color:var(--os-2);font-size:14px}
+.track span:first-child{font-family:var(--frak);font-size:clamp(30px,3.2vw,46px);color:var(--braise);line-height:1}
+h2{font-weight:900;font-size:clamp(40px,6vw,96px);line-height:.92;letter-spacing:-.035em;margin-bottom:22px;max-width:14ch}
+h3{font-weight:700;font-size:17px;margin-bottom:6px}
+p{max-width:58ch}
+p+p{margin-top:1em}
+.lede{font-size:clamp(19px,1.5vw,24px);line-height:1.45;max-width:36ch;margin-bottom:22px}
+.role{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:26px;font-size:14px;color:var(--os-2)}
+.role dt{color:var(--os);font-weight:700}
+.role div{display:flex;gap:8px}
+.cap{font-size:13px;color:var(--os-2);margin-top:10px;max-width:none}
+.links{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:24px;font-weight:700}
+
+/* ───────── 1. Départ ───────── */
+/* l'affiche : la photo occupe toute la hauteur à droite et se fond dans le noir, le nom passe devant */
+#depart{min-height:100svh;display:flex;align-items:center;padding-top:9vh;padding-bottom:9vh;overflow:hidden}
+#depart::before{content:"";position:absolute;right:0;top:0;bottom:0;width:70vw;pointer-events:none;
+  background:radial-gradient(ellipse 60% 70% at 70% 45%,rgba(224,38,26,.22),transparent 70%)}
+.intro{position:relative;z-index:3;min-width:0;width:100%}
+.name{font-family:var(--frak);font-weight:400;font-size:clamp(78px,13.5vw,230px);line-height:.8;letter-spacing:-.01em;margin:0 0 .14em -.04em;color:var(--os);white-space:nowrap;
+  text-shadow:0 2px 30px rgba(20,8,7,.85),0 0 2px rgba(20,8,7,.6)}
+.who{font-size:15px;color:var(--os-2);margin-bottom:18px}
+.who strong{color:var(--os);font-weight:700}
+.intro .lede,.intro p,.disciplines{max-width:min(600px,calc(100vw - 100svh * 2 / 3 - var(--gutter) - 24px))}
+.hero-img{position:absolute;z-index:1;top:0;right:0;height:100%;aspect-ratio:2/3;max-width:62vw;
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 30%),linear-gradient(to top,transparent 0,#000 16%);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0,#000 30%),linear-gradient(to top,transparent 0,#000 16%);mask-composite:intersect}
+.hero-img img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;
+  filter:brightness(.06) saturate(.5);transition:filter 1.8s ease-out .3s}
+body.ignited .hero-img img{filter:brightness(1) saturate(1)}
+.hero-img::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,var(--suie) 0,rgba(20,8,7,0) 9%)}
+.intro p{color:var(--os-2)}
+.intro .lede{color:var(--os)}
+.disciplines{list-style:none;display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:24px;font-weight:500;max-width:640px}
+.intro .tools{font-size:13px;color:var(--os-2);margin-top:12px}
+.cta{display:inline-flex;margin-top:30px;padding:14px 22px;border:1px solid var(--braise);color:var(--os);text-decoration:none;font-weight:700;transition:background .2s}
+.cta:hover{background:var(--braise);color:var(--os)}
+
+/* ───────── 2. Apocalypse : l'EP ───────── */
+.ep-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:center}
+.ep-head .cover{justify-self:end;width:100%;max-width:min(100%,80svh)}
+.ep-head .cover img{width:100%;aspect-ratio:1;object-fit:contain}
+.ep-clip{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:center;margin-top:clamp(48px,8vh,96px)}
+.clip-wrap .clip-player{height:min(82svh,820px)}
+.ep-info{max-width:620px}
+.ep-info .tracklist{margin-top:0}
+.ep-stills{display:flex;gap:12px;margin-top:clamp(48px,8vh,96px)}
+.ep-stills img{flex:var(--r) 1 0;min-width:0;aspect-ratio:var(--r);height:auto;object-fit:cover}
+.ar{font-family:"Reem Kufi",sans-serif;font-size:clamp(56px,7.5vw,124px);line-height:1;color:var(--braise);direction:rtl;margin:-6px 0 6px}
+.tracklist{list-style:none;margin-top:28px;border-top:1px solid var(--cendre);counter-reset:t}
+.tracklist li{border-bottom:1px solid var(--cendre)}
+.tracklist a{display:grid;grid-template-columns:2.2em 1fr auto;align-items:baseline;padding:10px 0;text-decoration:none;font-variant-numeric:tabular-nums}
+.tracklist a::before{counter-increment:t;content:counter(t);color:var(--os-2);font-size:13px}
+.tracklist .t{font-family:var(--frak);font-size:26px;line-height:1.1}
+.tracklist .d{color:var(--os-2);font-size:13px}
+.tracklist a:hover .t{color:var(--laine)}
+.quote{font-size:clamp(21px,1.9vw,28px);line-height:1.3;font-weight:500;max-width:26ch;margin:40px 0 0;padding-left:20px;border-left:2px solid var(--braise)}
+.quote cite{display:block;font-style:normal;font-size:13px;color:var(--os-2);margin-top:12px;font-weight:400}
+.clip-player{position:relative;background:#000;aspect-ratio:9/16}
+.clip-player video{width:100%;height:100%;object-fit:cover}
+
+/* ───────── 3. Obstacles : Maison funéraire ───────── */
+#obstacles{background:#0E0D0C;color:#D8D4CE}
+#obstacles .track span:first-child{color:#8C8680}
+.doc{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,5vw,80px);align-items:center}
+.screen{position:relative;aspect-ratio:16/9;background:#000;border:1px solid #2a2826}
+.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(1)}
+.coal{font-weight:900;font-size:clamp(64px,11vw,190px);letter-spacing:-.05em;line-height:.8;color:transparent;
+  -webkit-text-stroke:1px #34312e;position:absolute;right:clamp(20px,5vw,80px);bottom:-.1em;margin:0;user-select:none;white-space:nowrap;max-width:none;z-index:0}
+#obstacles{overflow:hidden;padding-bottom:calc(var(--pad-y) + clamp(40px,6vw,110px))}
+.doc{position:relative;z-index:1}
+
+/* ───────── 4. Mazal : allumette TouchDesigner ───────── */
+#mazal{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(32px,6vw,100px);align-items:center;
+  background:radial-gradient(ellipse at 72% 50%,rgba(217,184,138,.10),transparent 60%),var(--suie)}
+.td{position:relative;height:min(80svh,840px);aspect-ratio:9/16;background:#000}
+.td video{width:100%;height:100%;object-fit:contain}
+.sound{position:absolute;left:14px;top:14px;background:rgba(20,8,7,.75);color:var(--os);border:1px solid var(--bois);
+  font:700 13px var(--sans);padding:9px 14px;cursor:pointer}
+.sound:hover{background:var(--bois);color:var(--suie)}
+.specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 40px;margin-top:32px;max-width:560px}
+.specs p{font-size:14px;color:var(--os-2)}
+
+/* ───────── 5. Dakira : l'exposition ───────── */
+#dakira{background:linear-gradient(180deg,var(--suie),#12061a 18%,#12061a 82%,var(--suie))}
+#dakira .track span:first-child{color:var(--uv)}
+.expo-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(24px,3.5vw,56px);align-items:start}
+.poster{position:sticky;top:6vh}
+.poster img{width:100%;height:auto;max-height:84vh;object-fit:contain}
+.expo-side .lede{max-width:40ch}
+.expo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
+.expo figure:first-child{grid-column:1/-1}
+.expo img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.inventory{list-style:none;columns:2;column-gap:32px;font-size:15px;margin-top:22px}
+.inventory li{break-inside:avoid;padding:7px 0;border-bottom:1px solid #2b1838}
+
+/* ───────── 6. Clear : commande ───────── */
+.client{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(32px,4vw,64px);align-items:center}
+.client h2{max-width:none;font-size:clamp(40px,4.6vw,76px)}
+.reels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.reels a{display:block;text-decoration:none}
+.reels img{width:100%;aspect-ratio:9/16;object-fit:cover;filter:saturate(.85);transition:filter .3s}
+.reels a:hover img{filter:saturate(1.1) brightness(1.08)}
+.reels span{display:block;font-size:12px;color:var(--os-2);margin-top:8px;line-height:1.35}
+.process{list-style:none;counter-reset:s;margin-top:24px}
+.process li{counter-increment:s;display:grid;grid-template-columns:2em 1fr;padding:9px 0;border-top:1px solid var(--cendre);font-size:15px}
+.process li::before{content:counter(s);color:var(--braise);font-weight:700}
+
+/* ───────── 7. Volet II : Soufre ───────── */
+#soufre{background:radial-gradient(ellipse at 20% 0%,rgba(227,196,74,.09),transparent 55%),linear-gradient(180deg,var(--suie),#1a110b 25%,#1a110b)}
+#soufre .track span:first-child{color:var(--soufre)}
+#soufre h2{color:var(--os)}
+.soufre-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:center}
+.soufre-top .affiche img{width:100%;aspect-ratio:1;object-fit:cover}
+.badge{display:inline-block;font-size:13px;font-weight:700;color:var(--suie);background:var(--soufre);padding:4px 10px;margin-bottom:18px}
+.switch{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);margin-top:clamp(40px,6vh,72px);border:1px solid #3a2a1c}
+.switch > div{padding:24px clamp(18px,2.4vw,32px)}
+.switch > div + div{border-left:1px solid #3a2a1c;background:#0c0806}
+.switch h3{font-size:19px;margin-bottom:12px}
+.switch .tempo{display:block;font-size:13px;color:var(--os-2);font-weight:400;margin-top:2px}
+.switch ul{list-style:none;font-size:15px;color:var(--os-2)}
+.switch li{padding:7px 0;border-top:1px solid #2e2116}
+.switch li strong{color:var(--os);font-weight:700}
+.process-img{display:flex;flex-wrap:wrap;gap:16px;margin-top:clamp(28px,4vh,48px);align-items:flex-start}
+.process-img figure{flex:0 0 auto}
+.process-img img{height:min(52vh,440px);width:auto;max-width:100%}
+.process-img figcaption{font-size:13px;color:var(--os-2);margin-top:8px;max-width:30ch}
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);margin-top:clamp(32px,5vh,56px)}
+.duo p{font-size:15px;color:var(--os-2)}
+
+.end{margin-top:clamp(64px,10vh,120px);padding-top:clamp(40px,6vh,72px);border-top:1px solid #3a2a1c;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(32px,5vw,80px);align-items:end}
+.end h2{max-width:none;font-family:var(--frak);font-weight:400;letter-spacing:0;font-size:clamp(56px,8vw,130px);line-height:.9;margin:0 0 .25em}
+.mail{display:inline-block;font-weight:900;font-size:clamp(24px,3vw,48px);letter-spacing:-.02em;line-height:1.1;text-decoration:none;
+  border-bottom:2px solid var(--braise);padding-bottom:4px;word-break:break-all}
+.mail:hover{color:var(--laine);border-color:var(--laine)}
+.dispo{margin-top:18px;color:var(--os-2);font-size:15px}
+.end-side h3{font-size:15px;color:var(--os-2);font-weight:500;margin-bottom:10px}
+.cvs{list-style:none;border-top:1px solid var(--cendre)}
+.cvs li{border-bottom:1px solid var(--cendre)}
+.cvs a{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 0;font-weight:700;font-size:clamp(16px,1.2vw,19px);text-decoration:none}
+.cvs a span{font-weight:400;font-size:13px;color:var(--os-2);white-space:nowrap}
+.cvs a:hover{color:var(--soufre)}
+.socials{list-style:none;display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:22px;font-weight:700;font-size:15px}
+footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--gutter);font-size:13px;color:var(--os-2)}
+
+/* ───────── Responsive ───────── */
+@media (max-width:900px){
+  :root{--gutter:48px}
+  .ep-head,.ep-clip,.doc,#mazal,.expo-wrap,.client,.end,.soufre-top,.switch,.duo{grid-template-columns:1fr}
+  .ep-head .cover{justify-self:stretch;max-width:none}
+  .clip-wrap .clip-player{height:auto;width:100%;max-width:420px}
+  .ep-stills{flex-direction:column}
+  .ep-stills img{flex:none;width:100%}
+  .switch > div + div{border-left:0;border-top:1px solid #3a2a1c}
+  #depart{flex-direction:column;align-items:stretch;padding-top:0}
+  .hero-img{order:-1}
+  #depart::before{width:100%;height:80vh}
+  .hero-img{position:relative;height:auto;width:calc(100% + 20px);max-width:none;margin:0 -20px 0 auto;
+    -webkit-mask-image:linear-gradient(to top,transparent 0,#000 32%);mask-image:linear-gradient(to top,transparent 0,#000 32%)}
+  .intro{margin-top:-24vw}
+  .intro .lede,.intro p,.disciplines{max-width:none}
+  .name{font-size:17vw}
+  .td{height:auto;width:100%;max-width:420px}
+  .reels{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .process-img img{height:300px}
+  .mail{font-size:clamp(20px,6.4vw,30px)}
+  .now{right:0;bottom:0}
+  .now .bar{display:none}
+  .inventory{columns:1}
+  .match{width:14px;left:14px}
+  .coal{font-size:20vw}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .flame svg{animation:none}
+  .hero-img img,.flame,.glow{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="match" id="match" aria-label="Sommaire">
+  <div class="stick"></div>
+  <div class="char" id="char"></div>
+  <div class="head"></div>
+  <div class="flame" id="flame" aria-hidden="true">
+    <svg viewBox="0 0 26 46">
+      <defs>
+        <radialGradient id="fg" cx="50%" cy="75%" r="65%">
+          <stop offset="0" stop-color="#fff6d8"/>
+          <stop offset=".35" stop-color="#ffc24a"/>
+          <stop offset=".7" stop-color="#ff5e2a"/>
+          <stop offset="1" stop-color="#e0261a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <path d="M13 1C17 12 24 18 24 30a11 11 0 0 1-22 0C2 20 9 15 13 1Z" fill="url(#fg)"/>
+      <ellipse cx="13" cy="36" rx="4" ry="6" fill="#4b6bff" opacity=".55"/>
+    </svg>
+  </div>
+  <ol class="ticks" id="ticks"></ol>
+</div>
+<div class="glow" id="glow"></div>
+
+<div class="now" aria-live="polite">
+  <span id="now-n">1/6</span>
+  <b id="now-t">Départ</b>
+  <span class="bar"><i id="now-bar"></i></span>
+  <span id="now-time">0:00</span>
+</div>
+
+<main>
+
+<!-- 1 ─ DÉPART -->
+<section id="depart" data-track="Départ" data-len="179">
+  <div class="intro">
+    <div class="track"><span>Départ</span><span>Portfolio</span></div>
+    <h1 class="name">Rassw9ida</h1>
+    <p class="who"><strong>Hamza Kabori</strong>, Master 2 Création contemporaine et nouvelles technologies, option art numérique, Université Jean Monnet, Saint-Étienne</p>
+    <p class="lede">L'ombre avant la lumière. Musique, image et installation, pensées comme un seul feu.</p>
+    <p>J'écris en arabe, en français et en anglais, j'enregistre et je mixe mes morceaux, puis je les fais exister ailleurs : en clip, en exposition, en sculpture de lumière dans TouchDesigner, en film. Je cherche un stage en production, en direction artistique, en studio ou en communication créative.</p>
+    <ul class="disciplines">
+      <li>Direction artistique</li>
+      <li>Écriture trilingue</li>
+      <li>Prise de voix et mixage</li>
+      <li>Direction de tournage</li>
+      <li>Scénographie</li>
+      <li>Social media</li>
+    </ul>
+    <p class="tools">FL Studio, TouchDesigner, Unreal Engine, Kinect, MadMapper, Midjourney, Veo</p>
+    <a class="cta" href="#contact">Me contacter pour un stage</a>
+  </div>
+  <figure class="hero-img">
+    <img src="assets/photo-hero.jpg" alt="Rassw9ida, cagoule rouge à cornes, les mains sur la tête, bandana à la main, sous une lumière rouge">
+  </figure>
+</section>
+
+<!-- 2 ─ APOCALYPSE : EP -->
+<section id="apocalypse" data-track="Apocalypse" data-len="122">
+  <div class="ep-head">
+    <div>
+      <div class="track"><span>Apocalypse</span><span>Premier EP, sorti le 24 avril 2026</span></div>
+      <p class="ar" lang="ar">راطراباج</p>
+      <h2>Rattrapage</h2>
+      <p class="lede">Six titres, six phases de combustion d'une allumette. Au dernier, l'homme est devenu l'allumette.</p>
+      <p>Projet de Master 1. Chaque morceau est une étape du feu, de l'étincelle de Départ jusqu'à Clear, la métamorphose complète : la cagoule à cornes marquée de larmes devient le visage du personnage. J'ai porté l'EP de l'écriture à la sortie : textes et toplines, prise de voix, mixage intégral sous FL Studio, direction des shootings et du clip, campagne de lancement et distribution via DistroKid.</p>
+      <div class="links">
+        <a href="https://music.apple.com/us/album/rattrapage-ep/1891196314" target="_blank" rel="noopener">Apple Music</a>
+        <a href="https://www.youtube.com/watch?v=GZsgojDDTA0&list=OLAK5uy_k8CMf23eK_9KCdVbqZ3Y4H1IzFTz9tvi8" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://linktr.ee/Rassw9ida" target="_blank" rel="noopener">Toutes les plateformes</a>
+      </div>
+    </div>
+    <figure class="cover"><img src="assets/pochette.jpg" alt="Pochette de Rattrapage : Rassw9ida en cagoule rouge à cornes, bandana à la main, logo arabe راطراباج"></figure>
+  </div>
+
+  <div class="ep-clip">
+    <figure class="clip-wrap">
+      <div class="clip-player">
+        <video id="clip" src="assets/clip-rattrapage.mp4" muted loop playsinline preload="metadata" poster="assets/photo-profil.jpg" aria-label="Clip de lancement de Rattrapage"></video>
+        <button class="sound" id="clip-sound" type="button" aria-pressed="false">Activer le son</button>
+      </div>
+      <figcaption class="cap">Le clip de lancement, 23 avril 2026. <a href="https://www.instagram.com/reel/DXfYYqyCB_s/" target="_blank" rel="noopener">Voir sur Instagram</a></figcaption>
+    </figure>
+    <div class="ep-info">
+      <ol class="tracklist">
+        <li><a href="https://www.youtube.com/watch?v=GZsgojDDTA0" target="_blank" rel="noopener"><span class="t">Départ</span><span class="d">2:59</span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=oChqjTLCJuU" target="_blank" rel="noopener"><span class="t">Apocalypse</span><span class="d">2:02</span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=5RSVb3lXahk" target="_blank" rel="noopener"><span class="t">Obstacles</span><span class="d">4:03</span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=xuZY8iwJfOw" target="_blank" rel="noopener"><span class="t">Mazal</span><span class="d">2:41</span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=3TRQWdHkVy0" target="_blank" rel="noopener"><span class="t">Dakira</span><span class="d">2:26</span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=38X-Y4sEb5w" target="_blank" rel="noopener"><span class="t">Clear</span><span class="d">3:19</span></a></li>
+      </ol>
+      <dl class="role">
+        <div><dt>Production</dt><dd>@prodby6raw</dd></div>
+        <div><dt>Image</dt><dd>@houidatamer, @moncefkiddi, @makhtarlo6</dd></div>
+      </dl>
+      <blockquote class="quote">On n'écrit pas avec de l'encre, on écrit avec ce qu'il reste de nos incendies.<cite>Annonce de l'EP, avril 2026</cite></blockquote>
+    </div>
+  </div>
+
+  <div class="ep-stills">
+    <img src="assets/photo-profil.jpg" style="--r:1.0953" alt="Rassw9ida de profil, cagoule rouge, sous lumière rouge" loading="lazy">
+    <img src="assets/photo-tete-baissee.jpg" style="--r:.9625" alt="Rassw9ida, la tête baissée entre les mains" loading="lazy">
+  </div>
+</section>
+
+<!-- 3 ─ OBSTACLES : MAISON FUNÉRAIRE -->
+<section id="obstacles" data-track="Obstacles" data-len="243">
+  <div class="track"><span>Obstacles</span><span>Mini-documentaire expérimental</span></div>
+  <div class="doc">
+    <div>
+      <h2>Maison funéraire</h2>
+      <p class="lede">Saint-Étienne, la ville noire. Le charbon l'a construite, la suie est restée.</p>
+      <p>Un film court qui regarde la ville comme on veille un corps : ses façades, ses silences, ce que la mine a laissé derrière elle. Le noir et blanc n'est pas un filtre, c'est le sujet.</p>
+      <dl class="role">
+        <div><dt>Rôle</dt><dd>Réalisation, image, montage, son</dd></div>
+        <div><dt>Lieu</dt><dd>Saint-Étienne</dd></div>
+      </dl>
+    </div>
+    <div>
+      <div class="screen">
+        <iframe src="https://drive.google.com/file/d/17jVcO-h7KN2D3Y3t2Suh8ZIF7Rnr-mKI/preview" title="Maison funéraire, mini-documentaire" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      </div>
+      <p class="cap">Si le lecteur ne s'affiche pas, <a href="https://drive.google.com/file/d/17jVcO-h7KN2D3Y3t2Suh8ZIF7Rnr-mKI/view" target="_blank" rel="noopener">voir le film sur Google Drive</a>.</p>
+    </div>
+  </div>
+  <p class="coal" aria-hidden="true">ville noire</p>
+</section>
+
+<!-- 4 ─ MAZAL : ALLUMETTE -->
+<section id="mazal" data-track="Mazal" data-len="161">
+  <div>
+    <div class="track"><span>Mazal</span><span>Installation lumineuse et sonore</span></div>
+    <h2>Allumette</h2>
+    <p class="lede">Des allumettes de lumière projetées dans les fenêtres, qui s'allument et se consument avec le son de l'EP.</p>
+    <p>Programmée dans TouchDesigner, la pièce transforme Rattrapage en matière : le son figure la combustion de l'EP, la lumière glisse jusqu'au sol de la salle et vient chercher le public dans le noir.</p>
+    <div class="specs">
+      <div><h3>Outil</h3><p>TouchDesigner, projection vidéo</p></div>
+      <div><h3>Son</h3><p>Combustion de l'EP Rattrapage</p></div>
+      <div><h3>Espace</h3><p>Salle plongée dans le noir, projection sur les fenêtres</p></div>
+      <div><h3>Captation</h3><p>Vidéo verticale, 38 secondes</p></div>
+    </div>
+  </div>
+  <figure class="td">
+    <video id="td" src="assets/allumette.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Captation de l'installation Allumette : barres de lumière projetées dans des fenêtres d'une salle sombre"></video>
+    <button class="sound" id="sound" type="button" aria-pressed="false">Écouter la combustion</button>
+  </figure>
+</section>
+
+<!-- 5 ─ DAKIRA : EXPOSITION -->
+<section id="dakira" data-track="Dakira" data-len="146">
+  <div class="track"><span>Dakira</span><span>Exposition au Cyclorama, Saint-Étienne, 12 mai 2026</span></div>
+  <div class="expo-wrap">
+    <figure class="poster">
+      <img src="assets/affiche-expo.webp" alt="Affiche de l'exposition Rattrapage : pochette de l'EP dans un espace en béton éclairé rouge et bleu, Saint-Étienne, 12 mai 2026, QR code pour écouter" loading="lazy">
+      <figcaption class="cap">L'affiche, avec un QR code qui renvoie vers l'EP.</figcaption>
+    </figure>
+    <div class="expo-side">
+      <h2>L'EP devenu espace</h2>
+      <p class="lede">Dakira veut dire mémoire. Pour l'exposition, j'ai fait de Rattrapage une pièce où l'on entre.</p>
+      <p>Un petit espace saturé de lumière UV et rouge, traversé de fils. Chaque objet est une trace de l'EP : le visiteur passe du clip à la photo, de l'affiche à la cagoule elle-même, suspendue comme une pièce à conviction.</p>
+      <ul class="inventory">
+        <li>Écran vertical, extraits du clip</li>
+        <li>Tirage encadré, éclairé en rose</li>
+        <li>Cagoule suspendue à une pince</li>
+        <li>Tracklist en gothique</li>
+        <li>Feuilles suspendues sur fils</li>
+        <li>Lumière UV, rouge et magenta</li>
+      </ul>
+      <div class="expo">
+        <figure><img src="assets/expo-1.jpg" alt="Vue de l'exposition : écran vertical, tirage encadré, affiche de la tracklist et cagoule suspendue à un fil" loading="lazy"></figure>
+        <figure><img src="assets/expo-2.jpg" alt="Un visiteur photographie l'écran où apparaît Rassw9ida en cagoule" loading="lazy"></figure>
+        <figure><img src="assets/expo-3.jpg" alt="La cagoule orange suspendue sous lumière UV, devant le tirage encadré" loading="lazy"></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 ─ CLEAR : COMMANDE -->
+<section id="clear" data-track="Clear" data-len="199">
+  <div class="track"><span>Clear</span><span>Chef de projet contenu, mars à juillet 2026</span></div>
+  <div class="client">
+    <div>
+      <h2>Un barbier, un personnage</h2>
+      <p class="lede">Contenu Reels et TikTok pour des commerces de Saint-Étienne, ici un salon de barbier, de la stratégie à la publication.</p>
+      <p>Les mêmes codes que mon travail d'artiste, mis au service d'un commerce : cagoule, contre-jours, rouge et noir pour la gamme de produits maison. Le barbier devient un personnage, le salon un plateau.</p>
+      <ol class="process">
+        <li>Stratégie éditoriale et offre de services</li>
+        <li>Moodboards et scripts</li>
+        <li>Direction de l'équipe sur le tournage</li>
+        <li>Montage, étalonnage, son</li>
+        <li>Calendrier de publication et suivi des KPI</li>
+      </ol>
+    </div>
+    <div class="reels">
+      <a href="https://www.instagram.com/reel/DZzjXnHNfic/" target="_blank" rel="noopener"><img src="assets/tv-2.jpg" alt="Le barbier en cagoule noire derrière un client" loading="lazy"><span>Masterclass avant le rush</span></a>
+      <a href="https://www.instagram.com/reel/DZfJThOtke_/" target="_blank" rel="noopener"><img src="assets/tv-3.jpg" alt="Pots de cire et de pommade de la gamme maison sur fond noir" loading="lazy"><span>Gamme maison</span></a>
+      <a href="https://www.instagram.com/reel/DYKqoXEtsfm/" target="_blank" rel="noopener"><img src="assets/tv-1.jpg" alt="Le barbier en cagoule, filmé au grand angle" loading="lazy"><span>Ancrage local</span></a>
+      <a href="https://www.instagram.com/reel/DZm3abgN5uh/" target="_blank" rel="noopener"><img src="assets/tv-4.jpg" alt="Gros plan d'une tondeuse sur un dégradé" loading="lazy"><span>Le geste</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 7 ─ VOLET II : SOUFRE -->
+<section id="soufre" data-track="Gravity" data-n="II">
+  <div class="track"><span>Volet II</span><span>Projet de Master 2, en cours</span></div>
+  <div class="soufre-top">
+    <div>
+      <span class="badge">Prochain EP, 4 titres</span>
+      <h2>Soufre / The Floor is Lava</h2>
+      <p class="lede">Après la métamorphose, l'allumette doit vivre parmi les autres. Ce deuxième chapitre suit le personnage dans un monde social hostile.</p>
+      <p>Le nouvel EP parle d'usure, de méfiance envers ceux qui veulent du mal, et de rester debout sans suivre la masse, jusqu'au titre de clôture The Floor is Lava. Sur l'affiche, le masque tombe : le marc de café au fond d'une tasse dessine mon vrai visage, le crâne envahi de corps, la bouche qui rejette le liquide noir. Dans l'installation, je garde la cagoule et j'affronte le public en allumette.</p>
+      <dl class="role">
+        <div><dt>Format</dt><dd>Installation, impression 3D, mapping vidéo</dd></div>
+        <div><dt>Son</dt><dd>Gravity, extrait du nouvel EP</dd></div>
+      </dl>
+    </div>
+    <figure class="affiche">
+      <img src="assets/soufre-affiche.jpg" alt="Affiche du nouvel EP : un visage dessiné dans le marc de café au fond d'une tasse, la bouche rejetant le café" loading="lazy">
+      <figcaption class="cap">L'affiche du nouvel EP, le visage sans cagoule.</figcaption>
+    </figure>
+  </div>
+
+  <div class="switch" aria-label="Les deux phases de Gravity">
+    <div>
+      <h3>Avant le switch<span class="tempo">Rythme calme et optimiste</span></h3>
+      <ul>
+        <li><strong>Récit :</strong> apparence sociale lisse, intentions cachées.</li>
+        <li><strong>Écran central :</strong> le personnage cagoulé dans un décor lumineux et fleuri.</li>
+        <li><strong>Cadres mappés :</strong> des visages souriants, en contradiction avec les sculptures.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Après le switch<span class="tempo">Rythme tendu et percutant</span></h3>
+      <ul>
+        <li><strong>Récit :</strong> reprise de contrôle, la vraie nature des gens apparaît.</li>
+        <li><strong>Écran central :</strong> le décor bascule dans un espace sombre et brut, le personnage seul.</li>
+        <li><strong>Cadres mappés :</strong> les sourires disparaissent, place aux grimaces réelles des têtes 3D.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="process-img">
+    <figure><img src="assets/soufre-marc.jpg" alt="Photo d'origine : dépôt de marc de café au fond d'une tasse blanche" loading="lazy"><figcaption>Matière première : le marc au fond de la tasse.</figcaption></figure>
+    <figure><img src="assets/soufre-croquis-1.jpg" alt="Croquis : quatre sculptures-allumettes devant quatre cadres et un écran central" loading="lazy"><figcaption>Implantation : 4 sculptures-allumettes, 4 cadres mappés, 1 écran central.</figcaption></figure>
+    <figure><img src="assets/soufre-croquis-2.jpg" alt="Croquis de l'écran central : un personnage entouré de fleurs, puis seul" loading="lazy"><figcaption>Écran central : du décor fleuri à l'isolement.</figcaption></figure>
+  </div>
+
+  <div class="duo">
+    <div>
+      <h3>Mon rôle</h3>
+      <p>Direction artistique, écriture en arabe, français et anglais, composition et mixage de l'EP, interprétation sur l'écran central, conception des sculptures-allumettes et création de l'affiche.</p>
+    </div>
+    <div>
+      <h3>En binôme avec Tamer Houida</h3>
+      <p>Direction technique, scan et modélisation des visages pour l'impression 3D, environnements de l'écran central, animation et mapping synchronisé dans TouchDesigner et MadMapper.</p>
+    </div>
+  </div>
+
+  <div class="end" id="contact">
+    <div class="end-main">
+      <h2>On se parle ?</h2>
+      <a class="mail" href="mailto:kaborihamza@gmail.com?subject=Stage%20-%20portfolio%20Rassw9ida">kaborihamza@gmail.com</a>
+      <p class="dispo">Disponible tout de suite pour un stage à temps plein de 3 à 6 mois, partout en France.</p>
+    </div>
+    <div class="end-side">
+      <h3>Télécharger mon CV</h3>
+      <ul class="cvs">
+        <li><a href="assets/cv/Hamza-Kabori-CV-production-DA.pdf" download>Production et direction artistique<span>PDF, 1 page</span></a></li>
+        <li><a href="assets/cv/Hamza-Kabori-CV-studio-AR.pdf" download>Studio, A&amp;R et musique<span>PDF, 1 page</span></a></li>
+        <li><a href="assets/cv/Hamza-Kabori-CV-communication.pdf" download>Communication et social media<span>PDF, 1 page</span></a></li>
+      </ul>
+      <ul class="socials">
+        <li><a href="https://www.instagram.com/rassw9ida" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.youtube.com/@Rassw9ida" target="_blank" rel="noopener">YouTube</a></li>
+        <li><a href="https://www.tiktok.com/@rassw9ida" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a href="https://linktr.ee/Rassw9ida" target="_blank" rel="noopener">Linktree</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>Hamza Kabori, Rassw9ida, 2026. Catching up with the fire.</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const match = document.getElementById('match');
+  const char = document.getElementById('char');
+  const flame = document.getElementById('flame');
+  const glow = document.getElementById('glow');
+  const sections = [...document.querySelectorAll('main section')];
+  const ticks = document.getElementById('ticks');
+  const total = sections.filter(s => !s.dataset.n).length;
+
+  setTimeout(() => { match.classList.add('lit'); document.body.classList.add('ignited'); }, reduce ? 0 : 700);
+
+  const fmt = s => Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0');
+  function placeTicks(){
+    ticks.innerHTML = '';
+    const max = document.documentElement.scrollHeight - innerHeight;
+    sections.forEach(s => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#' + s.id; a.textContent = s.dataset.n ? 'Volet II' : s.dataset.track;
+      a.style.top = Math.min(100, s.offsetTop / max * 100) + '%';
+      li.appendChild(a); ticks.appendChild(li);
+    });
+  }
+
+  const nN = document.getElementById('now-n'), nT = document.getElementById('now-t'),
+        nB = document.getElementById('now-bar'), nTime = document.getElementById('now-time');
+
+  function onScroll(){
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const p = Math.min(1, Math.max(0, scrollY / max));
+    const pct = (p * 100) + '%';
+    char.style.height = pct;
+    flame.style.top = pct;
+    const r = match.getBoundingClientRect();
+    glow.style.left = (r.left + r.width/2) + 'px';
+    glow.style.top = (r.top + r.height * p) + 'px';
+
+    const mid = scrollY + innerHeight * 0.45;
+    let i = sections.findIndex(s => mid >= s.offsetTop && mid < s.offsetTop + s.offsetHeight);
+    if (i < 0) i = mid < sections[0].offsetTop ? 0 : sections.length - 1;
+    const s = sections[i];
+    const local = p >= 0.995 ? 1 : Math.min(1, Math.max(0, (mid - s.offsetTop) / s.offsetHeight));
+    nN.textContent = s.dataset.n ? 'Volet ' + s.dataset.n : (i+1) + '/' + total;
+    nT.textContent = s.dataset.track;
+    nB.style.width = (local*100) + '%';
+    nTime.textContent = s.dataset.len ? fmt(local * +s.dataset.len) + ' / ' + fmt(+s.dataset.len) : 'à venir';
+  }
+  addEventListener('scroll', onScroll, {passive:true});
+  addEventListener('resize', () => { placeTicks(); onScroll(); });
+  addEventListener('load', () => { placeTicks(); onScroll(); });
+  placeTicks(); onScroll();
+
+  const v = document.getElementById('td'), b = document.getElementById('sound');
+  b.addEventListener('click', () => {
+    v.muted = !v.muted;
+    if (!v.muted) v.play();
+    b.setAttribute('aria-pressed', String(!v.muted));
+    b.textContent = v.muted ? 'Écouter la combustion' : 'Couper le son';
+  });
+  if (reduce) { v.removeAttribute('autoplay'); v.pause(); }
+
+  // le clip démarre quand il entre à l'écran, s'arrête quand il en sort
+  const clip = document.getElementById('clip'), cb = document.getElementById('clip-sound');
+  cb.addEventListener('click', () => {
+    clip.muted = !clip.muted;
+    clip.play();
+    cb.setAttribute('aria-pressed', String(!clip.muted));
+    cb.textContent = clip.muted ? 'Activer le son' : 'Couper le son';
+  });
+  if (!reduce) new IntersectionObserver(([e]) => { e.isIntersecting ? clip.play().catch(()=>{}) : clip.pause(); }, {threshold:.4}).observe(clip);
+  else clip.controls = true;
+})();
+</script>
+</body>
+</html>
