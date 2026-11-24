@@ -14,7 +14,7 @@ Le site se lit comme l'EP *Rattrapage* : chaque section porte le nom d'une piste
 | Départ | Présentation |
 | Apocalypse | EP *Rattrapage*, pochette, clip, tracklist |
 | Obstacles | *Maison funéraire*, mini-documentaire sur Saint-Étienne |
-| Mazal | *Allumette*, installation TouchDesigner |
+| Mazal | *Allumette*, installation interactive TouchDesigner et Kinect |
 | Dakira | Exposition au Cyclorama, Saint-Étienne, 12 mai 2026 |
 | Clear | Contenu Reels et TikTok pour des commerces |
 | Volet II | *Soufre / The Floor is Lava*, projet de Master 2 |

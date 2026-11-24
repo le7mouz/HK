@@ -300,7 +300,7 @@ footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--
     <h1 class="name">Rassw9ida</h1>
     <p class="who"><strong>Hamza Kabori</strong>, Master 2 Création contemporaine et nouvelles technologies, option art numérique, Université Jean Monnet, Saint-Étienne</p>
     <p class="lede">L'ombre avant la lumière. Musique, image et installation, pensées comme un seul feu.</p>
-    <p>J'écris en arabe, en français et en anglais, j'enregistre et je mixe mes morceaux, puis je les fais exister ailleurs : en clip, en exposition, en sculpture de lumière dans TouchDesigner, en film. Je cherche un stage en production, en direction artistique, en studio ou en communication créative.</p>
+    <p>J'écris en arabe, en français et en anglais, j'enregistre et je mixe mes morceaux, puis je les fais exister ailleurs : en clip, en exposition, en installation interactive avec TouchDesigner et Kinect, en film. Je cherche un stage en production, en direction artistique, en studio ou en communication créative.</p>
     <ul class="disciplines">
       <li>Direction artistique</li>
       <li>Écriture trilingue</li>
@@ -392,20 +392,22 @@ footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--
 <!-- 4 ─ MAZAL : ALLUMETTE -->
 <section id="mazal" data-track="Mazal" data-len="161">
   <div>
-    <div class="track"><span>Mazal</span><span>Installation lumineuse et sonore</span></div>
+    <div class="track"><span>Mazal</span><span>Installation interactive, TouchDesigner et Kinect</span></div>
     <h2>Allumette</h2>
-    <p class="lede">Des allumettes de lumière projetées dans les fenêtres, qui s'allument et se consument avec le son de l'EP.</p>
-    <p>Programmée dans TouchDesigner, la pièce transforme Rattrapage en matière : le son figure la combustion de l'EP, la lumière glisse jusqu'au sol de la salle et vient chercher le public dans le noir.</p>
+    <p class="lede">Une allumette projetée qui répond au corps du visiteur. Pour l'entendre, il faut s'approcher et entrer dans le monde de Rassw9ida.</p>
+    <p>Une Kinect capte la personne face au mur. La flamme la suit à gauche et à droite, mais le son part dans l'autre sens : à droite, il passe à gauche, et inversement, pour attirer le visiteur vers le centre. De loin, le son s'éteint. De près, il revient et l'allumette se déforme : c'est moi qui fonds de l'intérieur, ce que raconte le morceau Mazal.</p>
     <div class="specs">
-      <div><h3>Outil</h3><p>TouchDesigner, projection vidéo</p></div>
-      <div><h3>Son</h3><p>Combustion de l'EP Rattrapage</p></div>
-      <div><h3>Espace</h3><p>Salle plongée dans le noir, projection sur les fenêtres</p></div>
-      <div><h3>Captation</h3><p>Vidéo verticale, 38 secondes</p></div>
+      <div><h3>Captation</h3><p>Kinect : position et distance du visiteur</p></div>
+      <div><h3>Image</h3><p>TouchDesigner, projection murale</p></div>
+      <div><h3>Gauche et droite</h3><p>La flamme suit le visiteur, le son s'inverse</p></div>
+      <div><h3>Distance</h3><p>Loin, le son s'éteint. Près, l'allumette se distord</p></div>
+      <div><h3>Son</h3><p>Mazal, sur enceintes et au casque</p></div>
+      <div><h3>Rôle</h3><p>Conception, programmation, son</p></div>
     </div>
   </div>
   <figure class="td">
-    <video id="td" src="assets/allumette.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Captation de l'installation Allumette : barres de lumière projetées dans des fenêtres d'une salle sombre"></video>
-    <button class="sound" id="sound" type="button" aria-pressed="false">Écouter la combustion</button>
+    <video id="td" src="assets/allumette.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Captation de l'installation Allumette : un visiteur face à l'allumette projetée, dans une salle sombre"></video>
+    <button class="sound" id="sound" type="button" aria-pressed="false">Écouter Mazal</button>
   </figure>
 </section>
 
@@ -604,7 +606,7 @@ footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--
     v.muted = !v.muted;
     if (!v.muted) v.play();
     b.setAttribute('aria-pressed', String(!v.muted));
-    b.textContent = v.muted ? 'Écouter la combustion' : 'Couper le son';
+    b.textContent = v.muted ? 'Écouter Mazal' : 'Couper le son';
   });
   if (reduce) { v.removeAttribute('autoplay'); v.pause(); }
 
