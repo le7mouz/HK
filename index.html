@@ -426,9 +426,7 @@ footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--
     </div>
   </div>
   <figure class="td">
-    <video id="td" src="assets/allumette.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Captation de l'installation Allumette : un visiteur face à l'allumette projetée, dans une salle sombre"></video>
-    <button class="sound" id="sound" type="button" aria-pressed="false">Écouter Mazal</button>
-  </figure>
+    <video id="td" src="assets/allumette.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Captation de l'installation Allumette : un visiteur face à l'allumette projetée, dans une salle sombre"></video>  </figure>
 
   <div class="try">
     <div class="try-head">
@@ -632,13 +630,9 @@ footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--
   addEventListener('load', () => { placeTicks(); onScroll(); });
   placeTicks(); onScroll();
 
-  const v = document.getElementById('td'), b = document.getElementById('sound');
-  b.addEventListener('click', () => {
-    v.muted = !v.muted;
-    if (!v.muted) { v.play(); const tb2 = document.getElementById('try-btn'); if (tb2.getAttribute('aria-pressed') === 'true') tb2.click(); }
-    b.setAttribute('aria-pressed', String(!v.muted));
-    b.textContent = v.muted ? 'Écouter Mazal' : 'Couper le son';
-  });
+  // la captation de l'installation reste muette : le son est dans la version jouable
+  const v = document.getElementById('td');
+  v.muted = true;
   if (reduce) { v.removeAttribute('autoplay'); v.pause(); }
 
   // le clip démarre quand il entre à l'écran, s'arrête quand il en sort
@@ -677,15 +671,13 @@ footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--
   function startAudio(){
     if (!ac) {
       ac = new (window.AudioContext || window.webkitAudioContext)();
-      au = new Audio('assets/allumette.mp4'); au.loop = true; au.crossOrigin = 'anonymous';
+      au = new Audio('assets/mazal.mp3'); au.loop = true; au.crossOrigin = 'anonymous';
       const src = ac.createMediaElementSource(au);
       lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 400;
       pan = ac.createStereoPanner(); gain = ac.createGain(); gain.gain.value = 0;
       src.connect(lp).connect(pan).connect(gain).connect(ac.destination);
     }
     ac.resume(); au.play();
-    const td = document.getElementById('td'); td.muted = true;
-    const sb = document.getElementById('sound'); sb.textContent = 'Écouter Mazal'; sb.setAttribute('aria-pressed', 'false');
   }
   tb.addEventListener('click', () => {
     const on = tb.getAttribute('aria-pressed') !== 'true';
