@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rassw9ida, Hamza Kabori — portfolio</title>
 <meta name="description" content="Portfolio de Hamza Kabori, alias Rassw9ida : musique, image, installation. Master 2 CCNT, option art numérique.">
+<meta name="theme-color" content="#140807">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rassw9ida, Hamza Kabori — portfolio">
+<meta property="og:description" content="Musique, image et installation. EP Rattrapage, installation interactive Allumette, exposition au Cyclorama. Cherche un stage de 3 à 6 mois partout en France.">
+<meta property="og:url" content="https://le7mouz.github.io/HK/">
+<meta property="og:image" content="https://le7mouz.github.io/HK/assets/pochette.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23140807'/%3E%3Crect x='14.5' y='14' width='3' height='15' fill='%23d9b88a'/%3E%3Cellipse cx='16' cy='14' rx='3' ry='4' fill='%23e0261a'/%3E%3Cpath d='M16 2c2 4 5 6 5 10a5 5 0 0 1-10 0c0-4 3-6 5-10z' fill='%23ff5e2a'/%3E%3Cpath d='M16 7c1 2 2.5 3 2.5 5a2.5 2.5 0 0 1-5 0c0-2 1.5-3 2.5-5z' fill='%23ffe8a8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Schibsted+Grotesk:wght@400;500;700;900&family=Reem+Kufi:wght@600&display=swap" rel="stylesheet">
@@ -164,6 +172,16 @@ body.ignited .hero-img img{filter:brightness(1) saturate(1)}
 .specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 40px;margin-top:32px;max-width:560px}
 .specs p{font-size:14px;color:var(--os-2)}
 
+/* l'installation, jouable dans la page */
+.try{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1.45fr);gap:clamp(24px,4vw,64px);align-items:end;margin-top:clamp(32px,6vh,72px)}
+.try-head h3{font-size:clamp(22px,2vw,30px);font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:12px}
+.try-head p{font-size:15px;color:var(--os-2);max-width:36ch}
+.try-btn{margin-top:22px;background:transparent;color:var(--os);border:1px solid var(--bois);font:700 14px var(--sans);padding:12px 18px;cursor:pointer;transition:background .2s,color .2s}
+.try-btn:hover,.try-btn[aria-pressed="true"]{background:var(--bois);color:var(--suie)}
+.try-wall{position:relative;aspect-ratio:16/9;max-height:72svh;background:#060201;overflow:hidden;cursor:none;touch-action:pan-y;
+  box-shadow:inset 0 0 120px rgba(0,0,0,.9)}
+.try-wall canvas{display:block;width:100%;height:100%}
+
 /* ───────── 5. Dakira : l'exposition ───────── */
 #dakira{background:linear-gradient(180deg,var(--suie),#12061a 18%,#12061a 82%,var(--suie))}
 #dakira .track span:first-child{color:var(--uv)}
@@ -231,6 +249,8 @@ footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--
   :root{--gutter:48px}
   .ep-head,.ep-clip,.doc,#mazal,.expo-wrap,.client,.end,.soufre-top,.switch,.duo{grid-template-columns:1fr}
   .ep-head .cover{justify-self:stretch;max-width:none}
+  .try{grid-template-columns:1fr}
+  .try-wall{aspect-ratio:4/5;cursor:auto}
   .clip-wrap .clip-player{height:auto;width:100%;max-width:420px}
   .ep-stills{flex-direction:column}
   .ep-stills img{flex:none;width:100%}
@@ -409,6 +429,17 @@ footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--
     <video id="td" src="assets/allumette.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Captation de l'installation Allumette : un visiteur face à l'allumette projetée, dans une salle sombre"></video>
     <button class="sound" id="sound" type="button" aria-pressed="false">Écouter Mazal</button>
   </figure>
+
+  <div class="try">
+    <div class="try-head">
+      <h3>Essaie l'installation ici</h3>
+      <p>Ta souris, ou ton doigt, remplace la Kinect. Approche-toi de l'allumette : le son revient et elle fond. Passe à droite, le son part à gauche. Avec un casque, c'est mieux.</p>
+      <button class="try-btn" id="try-btn" type="button" aria-pressed="false">Activer le son</button>
+    </div>
+    <div class="try-wall">
+      <canvas id="try-canvas" role="img" aria-label="Version interactive de l'installation Allumette : une allumette projetée qui suit le pointeur et se déforme quand on s'en approche"></canvas>
+    </div>
+  </div>
 </section>
 
 <!-- 5 ─ DAKIRA : EXPOSITION -->
@@ -604,7 +635,7 @@ footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--
   const v = document.getElementById('td'), b = document.getElementById('sound');
   b.addEventListener('click', () => {
     v.muted = !v.muted;
-    if (!v.muted) v.play();
+    if (!v.muted) { v.play(); const tb2 = document.getElementById('try-btn'); if (tb2.getAttribute('aria-pressed') === 'true') tb2.click(); }
     b.setAttribute('aria-pressed', String(!v.muted));
     b.textContent = v.muted ? 'Écouter Mazal' : 'Couper le son';
   });
@@ -620,6 +651,148 @@ footer{position:relative;z-index:2;padding:24px clamp(20px,5vw,80px) 90px var(--
   });
   if (!reduce) new IntersectionObserver(([e]) => { e.isIntersecting ? clip.play().catch(()=>{}) : clip.pause(); }, {threshold:.4}).observe(clip);
   else clip.controls = true;
+
+  /* ── L'installation Allumette, jouable : le pointeur remplace la Kinect ──
+     règles de la salle : la flamme suit le visiteur, le son part du côté opposé,
+     de loin le son s'éteint, de près il revient et l'allumette fond. */
+  const wall = document.querySelector('.try-wall'), cv = document.getElementById('try-canvas');
+  const ctx = cv.getContext('2d'), oc = document.createElement('canvas'), octx = oc.getContext('2d');
+  const tb = document.getElementById('try-btn');
+  let W = 0, H = 0, DPR = 1;
+  function size(){
+    DPR = Math.min(2, devicePixelRatio || 1);
+    W = wall.clientWidth; H = wall.clientHeight;
+    for (const c of [cv, oc]) { c.width = W * DPR; c.height = H * DPR; }
+  }
+  size(); addEventListener('resize', size);
+
+  const S = { px: null, py: null, inside: false, mx: 0.5, prox: 0, pan: 0, t: 0 };
+  const setP = e => { const r = wall.getBoundingClientRect(); S.px = (e.clientX - r.left) / r.width; S.py = (e.clientY - r.top) / r.height; S.inside = true; };
+  wall.addEventListener('pointermove', setP);
+  wall.addEventListener('pointerdown', setP);
+  wall.addEventListener('pointerleave', () => { S.inside = false; });
+
+  // son : la vraie captation de l'installation
+  let ac = null, gain, pan, lp, au;
+  function startAudio(){
+    if (!ac) {
+      ac = new (window.AudioContext || window.webkitAudioContext)();
+      au = new Audio('assets/allumette.mp4'); au.loop = true; au.crossOrigin = 'anonymous';
+      const src = ac.createMediaElementSource(au);
+      lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 400;
+      pan = ac.createStereoPanner(); gain = ac.createGain(); gain.gain.value = 0;
+      src.connect(lp).connect(pan).connect(gain).connect(ac.destination);
+    }
+    ac.resume(); au.play();
+    const td = document.getElementById('td'); td.muted = true;
+    const sb = document.getElementById('sound'); sb.textContent = 'Écouter Mazal'; sb.setAttribute('aria-pressed', 'false');
+  }
+  tb.addEventListener('click', () => {
+    const on = tb.getAttribute('aria-pressed') !== 'true';
+    if (on) startAudio(); else { au && au.pause(); }
+    tb.setAttribute('aria-pressed', String(on));
+    tb.textContent = on ? 'Couper le son' : 'Activer le son';
+  });
+
+  function drawMatch(g, x, base, t, prox){
+    const u = H / 100, lean = Math.max(-1, Math.min(1, ((S.px ?? .5) * W - x) / (W * .25)));
+    const sh = 50 * u, sw = Math.max(5, 1.1 * u), top = base - sh;
+    // tige : bois, puis brûlée sous la tête
+    const wood = g.createLinearGradient(x - sw, 0, x + sw, 0);
+    wood.addColorStop(0, '#8a6a46'); wood.addColorStop(.5, '#d9b88a'); wood.addColorStop(1, '#7d5e3c');
+    g.fillStyle = wood; g.fillRect(x - sw / 2, top, sw, sh);
+    const burn = g.createLinearGradient(0, top, 0, top + sh * .32);
+    burn.addColorStop(0, '#090302'); burn.addColorStop(.75, '#2a120a'); burn.addColorStop(1, 'rgba(42,18,10,0)');
+    g.fillStyle = burn; g.fillRect(x - sw / 2 - .5, top, sw + 1, sh * .32);
+    // tête
+    g.fillStyle = '#3a0b06'; g.beginPath(); g.ellipse(x, top, sw * 1.05, sw * 1.6, 0, 0, Math.PI * 2); g.fill();
+    // flamme : flicker + penche vers le visiteur, grandit quand on s'approche
+    const fl = (n) => Math.sin(t * 7.1 + n) * .5 + Math.sin(t * 12.7 + n * 2.3) * .3 + Math.sin(t * 3.3 + n) * .2;
+    const fh = (19 + 12 * prox) * u * (1 + .08 * fl(1)), fw = (4.4 + 2 * prox) * u;
+    const tipX = x + lean * fw * 1.8 + fl(4) * fw * .35, tipY = top - fh;
+    const layer = (scale, c0, c1) => {
+      const grd = g.createLinearGradient(0, top + 2 * u, 0, tipY);
+      grd.addColorStop(0, c0); grd.addColorStop(1, c1);
+      g.fillStyle = grd; g.beginPath();
+      g.moveTo(x - fw * scale, top + .6 * u);
+      g.bezierCurveTo(x - fw * scale * 1.15, top - fh * .45 * scale, tipX - fw * .4 * scale, top - fh * .75, x + (tipX - x) * scale, top - fh * scale);
+      g.bezierCurveTo(tipX + fw * .4 * scale, top - fh * .75, x + fw * scale * 1.15, top - fh * .45 * scale, x + fw * scale, top + .6 * u);
+      g.closePath(); g.fill();
+    };
+    layer(1, 'rgba(224,38,26,.9)', 'rgba(255,94,42,0)');
+    layer(.72, 'rgba(255,170,60,.95)', 'rgba(255,200,90,0)');
+    layer(.42, 'rgba(255,246,216,1)', 'rgba(255,240,200,0)');
+    g.fillStyle = 'rgba(75,107,255,.55)'; g.beginPath(); g.ellipse(x, top - .4 * u, fw * .38, fw * .55, 0, 0, Math.PI * 2); g.fill();
+  }
+
+  function frame(){
+    S.t += 1 / 60;
+    const tx = S.px ?? .5;
+    S.mx += ((.5 + (tx - .5) * .45) - S.mx) * .04;    // la flamme suit le visiteur, sans le rattraper
+    const x = S.mx * W, base = H * .86, headY = base - 50 * H / 100;
+    let target = 0;
+    if (S.inside && S.px !== null) {
+      const dx = (S.px * W - x) / W, dy = (S.py * H - headY) / H;
+      target = Math.max(0, 1 - Math.hypot(dx * 1.6, dy) / .55);
+    }
+    S.prox += (target - S.prox) * .06;
+    const sidePan = S.inside ? -Math.max(-1, Math.min(1, (tx - S.mx) * 3)) : 0;   // le son part de l'autre côté
+    S.pan += (sidePan - S.pan) * .08;
+    if (ac) {
+      const now = ac.currentTime;
+      gain.gain.setTargetAtTime(Math.pow(S.prox, 1.3) * .95, now, .08);
+      lp.frequency.setTargetAtTime(300 + 14000 * Math.pow(S.prox, 2), now, .1);
+      pan.pan.setTargetAtTime(S.pan, now, .08);
+    }
+
+    const p = S.prox, t = S.t;
+    octx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    octx.clearRect(0, 0, W, H);
+    drawMatch(octx, x, base, t, p);
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = '#060201'; ctx.fillRect(0, 0, cv.width, cv.height);
+    // le mur : un halo de projecteur
+    const wallG = ctx.createRadialGradient(x * DPR, H * .45 * DPR, 0, x * DPR, H * .45 * DPR, W * .7 * DPR);
+    wallG.addColorStop(0, 'rgba(60,22,12,.55)'); wallG.addColorStop(1, 'rgba(6,2,1,0)');
+    ctx.fillStyle = wallG; ctx.fillRect(0, 0, cv.width, cv.height);
+    // halo de la flamme, sur le mur (non déformé)
+    const hy = (headY - (19 + 12 * S.prox) * H / 100 * .35) * DPR, hr = H * (.45 + .25 * S.prox) * DPR;
+    const halo = ctx.createRadialGradient(x * DPR, hy, 0, x * DPR, hy, hr);
+    halo.addColorStop(0, `rgba(255,140,50,${.28 + .25 * S.prox})`); halo.addColorStop(1, 'rgba(255,94,42,0)');
+    ctx.fillStyle = halo; ctx.fillRect(0, 0, cv.width, cv.height);
+    // la fonte : bandes décalées, plus on approche plus ça ondule
+    const band = 3 * DPR, amp = Math.pow(p, 1.7) * W * .045 * DPR;
+    for (let y = 0; y < cv.height; y += band) {
+      const k = y / cv.height;
+      const dx = amp * (Math.sin(k * 38 + t * 5.3) * .7 + Math.sin(k * 91 - t * 9.1) * .3);
+      ctx.drawImage(oc, 0, y, cv.width, band, dx, y, cv.width, band);
+    }
+    if (p > .05) {                                     // dédoublement rouge et bleu
+      ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .35 * p;
+      ctx.drawImage(oc, -amp * .5, 0); ctx.drawImage(oc, amp * .5, 0);
+      ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+    }
+    // jauge gauche / droite : montre l'inversion du son
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    const lv = p * (1 - Math.max(0, S.pan)), rv = p * (1 + Math.min(0, S.pan));
+    ctx.font = '600 11px "Schibsted Grotesk", sans-serif'; ctx.fillStyle = 'rgba(239,230,218,.55)';
+    ctx.fillText('G', 18, H - 18); ctx.fillText('D', W - 26, H - 18);
+    ctx.fillStyle = 'rgba(255,94,42,.85)';
+    ctx.fillRect(34, H - 26, lv * (W * .3), 6);
+    ctx.fillRect(W - 34 - rv * (W * .3), H - 26, rv * (W * .3), 6);
+    // le visiteur
+    if (S.inside && S.px !== null) {
+      ctx.strokeStyle = 'rgba(239,230,218,.6)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(S.px * W, S.py * H, 10 + 6 * p, 0, Math.PI * 2); ctx.stroke();
+    }
+    if (running) requestAnimationFrame(frame);
+  }
+  let running = false;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !running) { running = true; size(); requestAnimationFrame(frame); }
+    else if (!e.isIntersecting) { running = false; if (au && !au.paused) { au.pause(); tb.setAttribute('aria-pressed', 'false'); tb.textContent = 'Activer le son'; } }
+  }, { threshold: .05 }).observe(wall);
 })();
 </script>
 </body>
